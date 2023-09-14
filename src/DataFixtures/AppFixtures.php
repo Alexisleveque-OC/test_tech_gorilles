@@ -49,6 +49,43 @@ class AppFixtures extends Fixture
             }
         }
 
+        $eventFull = new Event();
+        $eventFull->setName('EventFull')
+            ->setStartAt(new DateTime())
+            ->setSpaceAvailable(3);
+
+        $manager->persist($eventFull);
+
+        for ($l = 0; $l < $eventFull->getSpaceAvailable(); $l++) {
+            $reservationForEventFull = new Reservation();
+            $reservationForEventFull->setEvent($eventFull)
+                ->setDate($eventFull->getStartAt())
+                ->setParticipant($participants[mt_rand(0, 19)]);
+            $manager->persist($reservationForEventFull);
+        }
+
+        $eventWithParticipantPresent = new Event();
+        $eventWithParticipantPresent->setName('EventWithParticipantPresent')
+            ->setStartAt(new DateTime())
+            ->setSpaceAvailable(5);
+
+        $manager->persist($eventWithParticipantPresent);
+
+        $participantPresent = new Participant();
+        $participantPresent->setName('participant présent name')
+            ->setFirstName('participant présent first name')
+            ->setEmail('present@mail.com')
+            ->setBirthDate(new \DateTime('- ' . mt_rand(18, 50) . ' Years'));
+
+        $manager->persist($participantPresent);
+
+        $reservationForParticipantPresent = new Reservation();
+        $reservationForParticipantPresent->setEvent($eventWithParticipantPresent)
+            ->setDate($eventWithParticipantPresent->getStartAt())
+            ->setParticipant($participantPresent);
+
+        $manager->persist($reservationForParticipantPresent);
+
 
         $manager->flush();
     }

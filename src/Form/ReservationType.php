@@ -4,6 +4,8 @@ namespace App\Form;
 
 use App\Entity\Event;
 use App\Entity\Reservation;
+use App\Validator\Constraints\EventFull;
+use App\Validator\Constraints\ParticipantAlreadyPresent;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
@@ -18,7 +20,10 @@ class ReservationType extends AbstractType
             ->add('event', EntityType::class,[
                 'class' => Event::class,
                 'choice_label' => 'name',
-                'label' => "Choississez un évenement : "
+                'label' => "Choississez un évenement : ",
+                'constraints' => [
+                    new EventFull(),
+                    ]
             ] )
             ->add('participant', ParticipantType::class, [
                 'label' => "Information sur le participant :"

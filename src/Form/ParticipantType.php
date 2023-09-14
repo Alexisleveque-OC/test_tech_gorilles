@@ -9,6 +9,7 @@ use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\NotBlank;
 
 class ParticipantType extends AbstractType
 {
@@ -16,15 +17,19 @@ class ParticipantType extends AbstractType
     {
         $builder
             ->add('firstName', TextType::class, [
+                'constraints' => new NotBlank(),
                 'label' => "Prénom"
             ])
             ->add('name', TextType::class, [
+                'constraints' => new NotBlank(),
                 'label' => "Nom"
             ])
             ->add('email', EmailType::class, [
+                'constraints' => new NotBlank(),
                 'label' => "Adresse e-mail"
             ])
             ->add('birthDate', DateType::class, [
+                'constraints' => new NotBlank(),
                 'widget' => 'single_text',
                 'label' => "Date de naissance"
             ]);
