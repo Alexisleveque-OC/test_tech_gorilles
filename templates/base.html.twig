@@ -7,12 +7,8 @@
               href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
         {# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
         {% block stylesheets %}
-            <!-- Bootstrap Core CSS -->
-            <link href="{{ asset('CSS/bootstrap.min.css') }}" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
-            <!-- theme -->
             <link rel="stylesheet" href="{{ asset('CSS/bootstrap_theme.css') }}">
             {{ encore_entry_link_tags('app') }}
-            <link rel="stylesheet" href="{{ asset('CSS/style.css') }}">
         {% endblock %}
 
         {% block javascripts %}
@@ -20,6 +16,26 @@
         {% endblock %}
     </head>
     <body>
+    <nav class="navbar navbar-expand-lg bg-primary" data-bs-theme="dark">
+        <div class="container-fluid">
+{#            <a class="navbar-brand" href="#">Navbar</a>#}
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarColor02">
+                <ul class="navbar-nav me-auto">
+{#                    <li class="nav-item">#}
+{#                        <a class="nav-link active" href="#">Home#}
+{#                            <span class="visually-hidden">(current)</span>#}
+{#                        </a>#}
+{#                    </li>#}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('app_reservation') }}">Reservation</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
     {% for label, messages in app.flashes %}
         {% for message in messages %}
             <div id="alert" class="alert alert-{{ label }}" tabindex="1">
@@ -27,7 +43,9 @@
             </div>
         {% endfor %}
     {% endfor %}
+    <div class="container">
         {% block body %}{% endblock %}
+    </div>
 
     </body>
         <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>

@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Reservation{% endblock %}
+
+{% block body %}
+<div class="offset-2 col-8">
+
+{{ form_start(formReservation) }}
+    {{ form_row(formReservation.event) }}
+    <hr>
+    {{ form_row(formReservation.participant) }}
+    <hr>
+    {{ form_row(formReservation.date) }}
+    <button type="submit" class="btn btn-primary col-2">Réserver</button>
+    {{ form_end(formReservation) }}
+</div>
+{% endblock %}

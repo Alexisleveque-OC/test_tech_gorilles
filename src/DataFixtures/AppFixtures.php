@@ -32,7 +32,7 @@ class AppFixtures extends Fixture
             $participant->setName(sprintf('name%d', $j))
                 ->setFirstName(sprintf('firstname%d', $j))
                 ->setEmail(sprintf('mailUser%d@mail.com', $j))
-                ->setBirthDate(new \DateTimeImmutable('- ' . mt_rand(5, 50) . ' Years'));
+                ->setBirthDate(new \DateTime('- ' . mt_rand(5, 50) . ' Years'));
             $manager->persist($participant);
 
             $participants[] = $participant;

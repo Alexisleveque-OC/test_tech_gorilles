@@ -25,7 +25,7 @@ class Participant
     private ?string $email = null;
 
     #[ORM\Column]
-    private ?\DateTimeImmutable $birthDate = null;
+    private ?\DateTime $birthDate = null;
 
     #[ORM\OneToMany(mappedBy: 'participant', targetEntity: Reservation::class, orphanRemoval: true)]
     private Collection $reservations;
@@ -76,12 +76,12 @@ class Participant
         return $this;
     }
 
-    public function getBirthDate(): ?\DateTimeImmutable
+    public function getBirthDate(): ?\DateTime
     {
         return $this->birthDate;
     }
 
-    public function setBirthDate(\DateTimeImmutable $birthDate): static
+    public function setBirthDate(\DateTime $birthDate): static
     {
         $this->birthDate = $birthDate;
 
