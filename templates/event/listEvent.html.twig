@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des événements{% endblock %}
+
+{% block body %}
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th scope="col">Nom de l'événement</th>
+            <th scope="col">Date de début</th>
+            <th scope="col">Place totale</th>
+            <th scope="col">Place restante</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for event in events %}
+            <tr {% if (loop.index == 0) or (loop.index is not divisible by(2)) %} class="table-active" {% endif %}>
+                <th scope="row">
+{#                    <a href="{{ path('app_show_user', {'user_id':user.id}) }}">#}
+                        {{ event.name }}
+{#                    </a>#}
+                </th>
+                <td>{{ event.startAt|date("d/m/Y h:s") }}</td>
+                <td>{{ event.spaceAvailable }}  </td>
+                {% set reservedPlaces = event.reservations.count %}
+                {% set remainingPlace = event.spaceAvailable - reservedPlaces %}
+                <td>{{ remainingPlace }}  </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

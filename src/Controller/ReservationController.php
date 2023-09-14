@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Form\ReservationType;
+use App\Service\Event\EventFinder;
 use App\Service\Reservation\ReservationService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\FormError;
@@ -37,6 +38,16 @@ class ReservationController extends AbstractController
 
         return $this->render('reservation/reservation.html.twig', [
             'formReservation' => $formReservation
+        ]);
+    }
+
+    #[Route('/liste_des_evenement', name:'app_list_event')]
+    public function listEvent(EventFinder $eventFinder)
+    {
+        $events = $eventFinder->findAll();
+
+        return $this->render('event/listEvent.html.twig',[
+            'events' => $events
         ]);
     }
 }
