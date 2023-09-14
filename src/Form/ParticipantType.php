@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Participant;
+use App\Validator\Constraints\TooYoung;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
@@ -29,7 +30,9 @@ class ParticipantType extends AbstractType
                 'label' => "Adresse e-mail"
             ])
             ->add('birthDate', DateType::class, [
-                'constraints' => new NotBlank(),
+                'constraints' => [
+                    new TooYoung()
+                ],
                 'widget' => 'single_text',
                 'label' => "Date de naissance"
             ]);

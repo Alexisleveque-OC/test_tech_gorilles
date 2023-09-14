@@ -12,7 +12,7 @@ class EventFullValidator extends ConstraintValidator
 {
     private EventRepository $eventRepository;
 
-    public function __construct( EventRepository $eventRepository)
+    public function __construct(EventRepository $eventRepository)
     {
         $this->eventRepository = $eventRepository;
     }
@@ -27,13 +27,13 @@ class EventFullValidator extends ConstraintValidator
         $space = $event->getSpaceAvailable();
         $reservedPlaces = count($event->getReservations());
 
-        $spaceAvailable =  $space - $reservedPlaces;
+        $spaceAvailable = $space - $reservedPlaces;
 
-        if ($spaceAvailable != 0){
+        if ($spaceAvailable != 0) {
             return true;
         }
         $this->context->buildViolation($constraint->message)
-        ->addViolation();
+            ->addViolation();
         return false;
     }
 }
