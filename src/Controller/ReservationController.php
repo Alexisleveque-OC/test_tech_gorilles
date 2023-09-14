@@ -2,8 +2,10 @@
 
 namespace App\Controller;
 
+use App\Entity\Reservation;
+use App\Form\DeleteReservationConfirmationType;
 use App\Form\ReservationType;
-use App\Service\Event\EventFinder;
+use App\Service\Reservation\DeleteReservation;
 use App\Service\Reservation\ReservationService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\FormError;
@@ -38,6 +40,31 @@ class ReservationController extends AbstractController
 
         return $this->render('reservation/reservation.html.twig', [
             'formReservation' => $formReservation
+        ]);
+    }
+
+
+    #[Route('/reservation/delete/{reservation}', name:'app_delete_reservation')]
+    #[Route('/reservation/{reservation}', name:'app_show_reservation')]
+    public function deleteEvent(Request $request, DeleteReservation $deleteReservation, Reservation $reservation)
+    {
+        $formDeleteConf = $this->createForm(DeleteReservationConfirmationType::class);
+
+        $formDeleteConf->handleRequest($request);
+
+        if ($formDeleteConf->isSubmitted() && $formDeleteConf->isValid()){
+
+            $event = $deleteReservation->deleteReservation($reservation);
+
+            $this->addFlash('info', "La réservation a bien été supprimé !");
+            return $this->render('event/showEvent.html.twig',[
+                'event' => $event
+            ]);
+        }
+
+        return $this->render('reservation/show.html.twig',[
+            'reservation' => $reservation,
+            'formDeleteconf' => $formDeleteConf
         ]);
     }
 

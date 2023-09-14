@@ -23,7 +23,7 @@
             <td>{{ reservation.participant.email }}</td>
             <td>{{ reservation.date|date("d/m/Y") }}</td>
             <td>
-                <button class="btn btn-danger">X</button>
+                <a href="{{ path('app_show_reservation', {'reservation':reservation.id}) }}" type="button" class="btn btn-danger" >X</a>
             </td>
         </tr>
         {% endfor %}
