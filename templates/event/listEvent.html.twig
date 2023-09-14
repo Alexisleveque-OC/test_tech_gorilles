@@ -10,13 +10,14 @@
             <th scope="col">Date de début</th>
             <th scope="col">Place totale</th>
             <th scope="col">Place restante</th>
+            <th scope="col">Voir les réservations</th>
         </tr>
         </thead>
         <tbody>
         {% for event in events %}
             <tr {% if (loop.index == 0) or (loop.index is not divisible by(2)) %} class="table-active" {% endif %}>
                 <th scope="row">
-                    <a href="{{ path('app_show_event', {'event':event.id}) }}">
+                    <a href="{{ path('app_update_event', {'event':event.id}) }}">
                         {{ event.name }}
                     </a>
                 </th>
@@ -25,6 +26,11 @@
                 {% set reservedPlaces = event.reservations.count %}
                 {% set remainingPlace = event.spaceAvailable - reservedPlaces %}
                 <td>{{ remainingPlace }}  </td>
+                <th scope="row">
+                    <a href="{{ path('app_show_event', {'event':event.id}) }}" class="btn btn-primary">
+                        reservation de l'évènement
+                    </a>
+                </th>
             </tr>
         {% endfor %}
         </tbody>

@@ -14,7 +14,7 @@ class DeleteReservation
         $this->manager= $manager;
     }
 
-    public function deleteReservation(Reservation $reservation)
+    public function deleteReservation(Reservation $reservation): ?\App\Entity\Event
     {
         $event = $reservation->getEvent();
 

@@ -46,7 +46,7 @@ class ReservationController extends AbstractController
 
     #[Route('/reservation/delete/{reservation}', name:'app_delete_reservation')]
     #[Route('/reservation/{reservation}', name:'app_show_reservation')]
-    public function deleteEvent(Request $request, DeleteReservation $deleteReservation, Reservation $reservation)
+    public function deleteEvent(Request $request, DeleteReservation $deleteReservation, Reservation $reservation): Response
     {
         $formDeleteConf = $this->createForm(DeleteReservationConfirmationType::class);
 

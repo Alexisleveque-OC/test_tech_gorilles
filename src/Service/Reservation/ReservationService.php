@@ -17,7 +17,7 @@ class ReservationService
         $this->reservationRepository = $reservationRepository;
     }
 
-    public function saveReservation(Reservation $reservation)
+    public function saveReservation(Reservation $reservation): Reservation
     {
         $this->manager->persist($reservation->getParticipant());
 
@@ -33,7 +33,7 @@ class ReservationService
         return $reservation;
     }
 
-    public function participantAlreadyPresent(Reservation $reservation)
+    public function participantAlreadyPresent(Reservation $reservation): bool
     {
         $emails = [];
         $reservations = $reservation->getEvent()->getReservations();
