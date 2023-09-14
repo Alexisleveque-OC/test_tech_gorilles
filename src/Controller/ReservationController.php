@@ -15,22 +15,29 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class ReservationController extends AbstractController
 {
-    #[Route('/', name: 'app_reservation')]
-    public function reservation(Request $request, ReservationService $reservationService): Response
+    #[Route('/reservation_create', name: 'app_reservation_create')]
+    #[Route('/reservation/update/{reservation}', name: 'app_reservation_update')]
+    public function reservation(Request $request, ReservationService $reservationService, Reservation $reservation = null): Response
     {
-        $formReservation = $this->createForm(ReservationType::class);
+        $editMode = false;
+        if ($reservation){
+            $editMode = true;
+        }
+        $formReservation = $this->createForm(ReservationType::class, $reservation);
 
         $formReservation->handleRequest($request);
 
-
         if ($formReservation->isSubmitted() && $formReservation->isValid()) {
+
             if ($reservationService->participantAlreadyPresent($formReservation->getData())) {
                 $formReservation->addError(new FormError("Vous êtes déjà inscrit pour cette événement."));
 
                 return $this->render('reservation/reservation.html.twig', [
-                    'formReservation' => $formReservation
+                    'formReservation' => $formReservation,
+                    'editMode' => $editMode
                 ]);
             }
+
             $reservation = $reservationService->saveReservation($formReservation->getData());
 
             $this->addFlash("success", "Votre réservation pour l'événement : {$reservation->getEvent()->getName()} à bien été prise en compte.");
@@ -39,7 +46,9 @@ class ReservationController extends AbstractController
         }
 
         return $this->render('reservation/reservation.html.twig', [
-            'formReservation' => $formReservation
+            'formReservation' => $formReservation,
+            'editMode' => $editMode,
+            'reservation' => $reservation
         ]);
     }
 
