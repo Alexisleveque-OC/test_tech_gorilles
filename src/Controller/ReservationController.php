@@ -41,13 +41,4 @@ class ReservationController extends AbstractController
         ]);
     }
 
-    #[Route('/liste_des_evenement', name:'app_list_event')]
-    public function listEvent(EventFinder $eventFinder)
-    {
-        $events = $eventFinder->findAll();
-
-        return $this->render('event/listEvent.html.twig',[
-            'events' => $events
-        ]);
-    }
 }

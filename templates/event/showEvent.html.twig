@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Evénement {{ event.name }}{% endblock %}
+
+{% block body %}
+    <h2>Evènement : {{ event.name }}</h2>
+    <h4>Cette évènement débutera le : {{ event.startAt|date("d/m/Y h:s") }}</h4>
+    <table class="table table-hover text-center">
+        <thead>
+        <tr>
+            <th scope="col">Réservation N°</th>
+            <th scope="col">Nom et prénom</th>
+            <th scope="col">Email</th>
+            <th scope="col">Date de la réservation</th>
+            <th scope="col">Supprimer l'évènement</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for reservation in event.reservations %}
+        <tr>
+            <th scope="row">{{ reservation.id }}</th>
+            <td>{{ reservation.participant.name }} {{ reservation.participant.firstName }} </td>
+            <td>{{ reservation.participant.email }}</td>
+            <td>{{ reservation.date|date("d/m/Y") }}</td>
+            <td>
+                <button class="btn btn-danger">X</button>
+            </td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
